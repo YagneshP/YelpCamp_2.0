@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Add Campground</title>
+</head>
+<body>
+	<form action='http://localhost:3000/campgrounds/new' method="POST">
+			<label for='title'>Title:</label>
+			<input type='text' id='title' name='title' placeholder="campground name">
+			<label for='price'>Price:</label>
+			<input type='text' id='price' name='price' placeholder="1.00 per hour rate">
+			<label for='decription'>Description:</label>
+			<input type='text' id='description' name='decription' placeholder='describe your campground'>
+			<label for='location'>City</label>
+			<input type='string' for='location' name="location" placeholder='Ex.Toronto'>
+			<button type="submit">Submit</button>
+	</form>
+</body>
+</html>

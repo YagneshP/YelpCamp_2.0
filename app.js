@@ -3,16 +3,22 @@ const app 				= express()
 const path   			= require('path')
 const mongoose 		= require('mongoose')
 const Campground 	= require('./model/campground')
-const { SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION } = require('constants')
+const methodOverride = require('method-override')
 
 
-mongoose.connect('mongodb+srv://yagnesh:yelpcamp@cluster0.0s9kp.mongodb.net/firstDataBase?retryWrites=true&w=majority',{useNewUrlParser:true, useUnifiedTopology:true})
+
+mongoose.connect('mongodb+srv://yagnesh:yelpcamp@cluster0.0s9kp.mongodb.net/firstDataBase?retryWrites=true&w=majority',
+									{useNewUrlParser:true, 
+									 useUnifiedTopology:true,
+									 useFindAndModify:false
+									})
 				.then(()=>{
 							console.log("successful connection to database")})
 				.catch((err)=>{console.log(`Database connection err: ${err}`) })
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
+app.use(methodOverride('_method'))
 
 app.set('view engine','ejs')
 app.set('views',path.join(__dirname, 'views'));
@@ -31,9 +37,8 @@ app.get("/campgrounds/new",(req,res)=>{
 })
 //post route to create new campground
 app.post("/campgrounds/new", async (req,res)=>{
-	console.log(req.body);
-	const newCampground = await Campground.create(req.body)
-	res.redirect('/campgrounds')
+	const newCampground = await Campground.create(req.body.campground)
+	res.redirect(`/campgrounds/${newCampground._id}`)
 })
 //single campground show
 app.get('/campgrounds/:id', async (req,res)=>{
@@ -41,6 +46,17 @@ app.get('/campgrounds/:id', async (req,res)=>{
 	res.render('campgrounds/show',{campground})
 })
 
+//edit campground
+app.get('/campgrounds/:id/edit',async (req,res)=>{
+	const campground = await Campground.findById(req.params.id)
+	res.render('campgrounds/edit',{campground})
+})
+
+app.put('/campgrounds/:id', async (req,res)=>{
+	const {id} = req.params
+	const campground = await Campground.findByIdAndUpdate(id,{...req.body.campground},{new:true})
+	res.redirect(`/campgrounds/${campground._id}`)
+})
 
 //Listening server
 app.listen(3000,()=>{

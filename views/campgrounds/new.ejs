@@ -7,16 +7,17 @@
 	<title>Add Campground</title>
 </head>
 <body>
-	<form action='http://localhost:3000/campgrounds/new' method="POST">
+	<form action='/campgrounds/new' method="POST">
 			<label for='title'>Title:</label>
-			<input type='text' id='title' name='title' placeholder="campground name">
+			<input type='text' id='title' name='campground[title]' placeholder="campground name">
 			<label for='price'>Price:</label>
-			<input type='text' id='price' name='price' placeholder="1.00 per hour rate">
+			<input type='text' id='price' name='campground[price]' placeholder="1.00 per hour rate">
 			<label for='decription'>Description:</label>
-			<input type='text' id='description' name='decription' placeholder='describe your campground'>
+			<input type='text' id='description' name='campground[description]' placeholder='describe your campground'>
 			<label for='location'>City</label>
-			<input type='string' for='location' name="location" placeholder='Ex.Toronto'>
+			<input type='string' for='location' name="campground[location]" placeholder='Ex.Toronto'>
 			<button type="submit">Submit</button>
 	</form>
+	<a href='/campgrounds'>All campgrounds</a>
 </body>
 </html>

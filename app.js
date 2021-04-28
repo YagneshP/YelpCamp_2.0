@@ -1,9 +1,10 @@
-const express 		= require('express')
-const app 				= express()
-const path   			= require('path')
-const mongoose 		= require('mongoose')
-const Campground 	= require('./model/campground')
-const methodOverride = require('method-override')
+const express 				= require('express')
+const app 						= express()
+const path   					= require('path')
+const mongoose 				= require('mongoose')
+const Campground 			= require('./model/campground')
+const methodOverride 	= require('method-override')
+const ejsMate					= require('ejs-mate')
 
 
 
@@ -16,6 +17,7 @@ mongoose.connect('mongodb+srv://yagnesh:yelpcamp@cluster0.0s9kp.mongodb.net/firs
 							console.log("successful connection to database")})
 				.catch((err)=>{console.log(`Database connection err: ${err}`) })
 
+app.engine('ejs', ejsMate)
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
 app.use(methodOverride('_method'))

@@ -7,6 +7,7 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError');
+const {validCampgroundSchema} = require('./validSchemas');
 mongoose
   .connect(
     "mongodb+srv://yagnesh:yelpcamp@cluster0.0s9kp.mongodb.net/firstDataBase?retryWrites=true&w=majority",
@@ -27,6 +28,18 @@ app.use(methodOverride("_method"));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+//validating middleware
+
+const validateCampground = (req,res,next) =>{
+	const {error} = validCampgroundSchema.validate(req.body);
+	if(error){
+		const msg = error.details.map(el => el.message.join(','));
+		throw new ExpressError(msg, 400)
+	} else{
+		next()
+	}
+}
+
 app.get("/", (req, res) => {
   res.render("home");
 });
@@ -40,7 +53,7 @@ app.get("/campgrounds/new", (req, res) => {
   res.render("campgrounds/new");
 });
 //post route to create new campground
-app.post("/campgrounds/new", catchAsync( async (req, res) => {
+app.post("/campgrounds/new", validateCampground, catchAsync( async (req, res) => {
   const newCampground = await Campground.create(req.body.campground);
   res.redirect(`/campgrounds/${newCampground._id}`);
 }));
@@ -56,7 +69,7 @@ app.get("/campgrounds/:id/edit", catchAsync( async (req, res) => {
   res.render("campgrounds/edit", { campground });
 }));
 
-app.put("/campgrounds/:id",catchAsync(async (req, res) => {
+app.put("/campgrounds/:id", validateCampground,catchAsync(async (req, res) => {
   const { id } = req.params;
   const campground = await Campground.findByIdAndUpdate(
     id,

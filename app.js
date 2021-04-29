@@ -7,7 +7,8 @@ const ejsMate = require("ejs-mate");
 const ExpressError = require('./utils/ExpressError');
 const campgroundsRoutes = require('./route/campgrounds');
 const reviewRoutes = require('./route/reviews');
-
+const session = require('express-session');
+const flash = require('connect-flash');
 mongoose
   .connect(
     "mongodb+srv://yagnesh:yelpcamp@cluster0.0s9kp.mongodb.net/firstDataBase?retryWrites=true&w=majority",

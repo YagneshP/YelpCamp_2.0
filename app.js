@@ -13,6 +13,7 @@ const flash = require('connect-flash');
 const passport = require("passport");
 const User = require("./model/user");
 const LocalStrategy = require('passport-local');
+
 mongoose
   .connect(
     "mongodb+srv://yagnesh:yelpcamp@cluster0.0s9kp.mongodb.net/firstDataBase?retryWrites=true&w=majority",

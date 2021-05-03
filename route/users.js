@@ -1,4 +1,5 @@
 const express = require('express');
+const passport = require('passport');
 const User = require('../model/user');
 const router = express.Router();
 const catchAsync = require("../utils/catchAsync")
@@ -13,7 +14,7 @@ try{
 	// create new User instance with username and email
 	const user = new User({username, email});
 	const newuser =  await User.register(user, password);  //register() method give passportlocalMongoose
-	req.login(newuser,(err)=>{
+	req.login(newuser,(err)=>{  // req.login will add user object to the req object
 		if(err) return next(err);
 		req.flash('success',"Welcome to the YelpCamp!");
 		res.redirect("/campgrounds");
@@ -22,7 +23,23 @@ try{
 	req.flash('error', err.message);
 	res.redirect('register')
 }
-
 }));
 
+//user login 
+
+router.get('/login',(req,res)=>{
+	res.render('users/login')
+});
+
+router.post('/login', passport.authenticate('local',{failureFlash:true, failureRedirect:"/login"}),(req,res)=>{
+	req.flash('success',`Welcomeback! ${req.user.username}`);
+	res.redirect("/campgrounds")
+})
+
+//logout
+router.get("/logout",(req,res)=>{
+	req.logout();
+	req.flash('success','GoodBye!');
+	res.redirect("/campgrounds");
+})
 module.exports = router;

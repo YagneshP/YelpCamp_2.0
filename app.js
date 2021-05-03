@@ -6,9 +6,13 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const ExpressError = require('./utils/ExpressError');
 const campgroundsRoutes = require('./route/campgrounds');
+const userRoutes = require('./route/users');
 const reviewRoutes = require('./route/reviews');
 const session = require('express-session');
 const flash = require('connect-flash');
+const passport = require("passport");
+const User = require("./model/user");
+const LocalStrategy = require('passport-local');
 mongoose
   .connect(
     "mongodb+srv://yagnesh:yelpcamp@cluster0.0s9kp.mongodb.net/firstDataBase?retryWrites=true&w=majority",
@@ -46,14 +50,22 @@ app.use((req, res, next) => {
 	res.locals.error = req.flash('error');
 	next();
 })
+//passport config
+app.use(passport.initialize());
+app.use(passport.session());
 
+//use Local stategy
+passport.use(new LocalStrategy(User.authenticate())) // passportLocalMongoose provide authenticate() to User model 
+//using passport get the user from seesion
+passport.serializeUser(User.serialize())   //passportLocalMongoose give the serialize method to User model
+passport.deserializeUser(User.deserialize()) 
 
 app.get("/", (req, res) => {
   res.render("home");
 });
 app.use('/campgrounds', campgroundsRoutes)
 app.use('/campgrounds/:id/reviews', reviewRoutes)
-
+app.use('/', userRoutes )
 //NOT Found PAGE
 app.all('*',(req,res,next)=>{
 	next(new ExpressError('Page not found',404))

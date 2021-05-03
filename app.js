@@ -46,12 +46,7 @@ const sessionConfig = {
 app.use(session(sessionConfig))
 app.use(flash());
 
-app.use((req, res, next) => {
-	res.locals.success = req.flash('success');
-	res.locals.error = req.flash('error');
-	res.locals.currentUser = req.user;
-	next();
-})
+
 //passport config
 app.use(passport.initialize());
 app.use(passport.session());
@@ -61,7 +56,12 @@ passport.use(new LocalStrategy(User.authenticate())) // passportLocalMongoose pr
 //using passport get the user from seesion
 passport.serializeUser(User.serializeUser())   //passportLocalMongoose give the serializeUser method to User model
 passport.deserializeUser(User.deserializeUser()) 
-
+app.use((req, res, next) => {
+	res.locals.success = req.flash('success');
+	res.locals.error = req.flash('error');
+	res.locals.currentUser = req.user;
+	next();
+})
 app.get("/", (req, res) => {
   res.render("home");
 });

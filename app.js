@@ -57,8 +57,8 @@ app.use(passport.session());
 //use Local stategy
 passport.use(new LocalStrategy(User.authenticate())) // passportLocalMongoose provide authenticate() to User model 
 //using passport get the user from seesion
-passport.serializeUser(User.serialize())   //passportLocalMongoose give the serialize method to User model
-passport.deserializeUser(User.deserialize()) 
+passport.serializeUser(User.serializeUser())   //passportLocalMongoose give the serializeUser method to User model
+passport.deserializeUser(User.deserializeUser()) 
 
 app.get("/", (req, res) => {
   res.render("home");

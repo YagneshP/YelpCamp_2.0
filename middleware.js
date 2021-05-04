@@ -1,6 +1,7 @@
 const {validCampgroundSchema} = require('./validSchemas');
 const ExpressError = require('./utils/ExpressError');
 const Campground = require("./model/campground");
+const Review = require('./model/review');
 //Validating incoming campground with Joi
 const validateCampground = (req,res,next) =>{
 	const {error} = validCampgroundSchema.validate(req.body);
@@ -34,9 +35,21 @@ const isAuthorized = async(req,res,next) => {
 	}
 } 	
 
+//authReview
+
+const isAuthReview = async(req,res,next) =>{
+	const{reviewId} = req.params;
+	const foundReview = await Review.findById(reviewId);
+	if(foundReview.author.equals(currentUser)){
+		next()
+	}
+	req.flash('error','You are not authorized');
+	return res.redirect("/campgrounds");
+}
 
 module.exports = {
 	isLoggedIn,
 	validateCampground,
-	isAuthorized
+	isAuthorized,
+	isAuthReview
 }

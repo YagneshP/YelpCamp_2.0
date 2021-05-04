@@ -18,7 +18,7 @@ const validateReview = (req,res,next) =>{
 
 router.post('/',isLoggedIn,validateReview,catchAsync( async(req,res)=>{
 	const campground = await Campground.findById(req.params.id)	
-	const review = await Review.create(req.body.review)
+	const review = await Review.create({...req.body.review,author:req.user._id});
 	campground.reviews.push(review)
 	await	campground.save()
 	req.flash('success', 'Created new review!');

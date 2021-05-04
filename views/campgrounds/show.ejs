@@ -47,9 +47,13 @@
 						<div class="card-body">
 							<h5 class="card-title">Rating: <%= review.rating %> </h5>
 							<p class='card-text'>Review: <%= review.body  %>  </p>
-							<form action='/campgrounds/<%=campground._id %>/reviews/<%=review._id%>?_method=DELETE' method='POST'>
-								<button type='submit' class="btn btn-sm btn-danger">Delete</button>
-							</form>
+							<!-- if currentuser is not who gave the riview so he cant see the delete btn -->
+							<% if (review.author.equals(currentUser)) { %>
+								<form action='/campgrounds/<%=campground._id %>/reviews/<%=review._id%>?_method=DELETE' method='POST'>
+									<button type='submit' class="btn btn-sm btn-danger">Delete</button>
+								</form>
+							<% } %>
+
 						</div>
 					</div>
 				<% } %>  

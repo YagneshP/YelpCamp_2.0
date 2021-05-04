@@ -26,13 +26,13 @@ router.get("/new", isLoggedIn, (req, res) => {
 });
 //post route to create new campground
 router.post("/new",isLoggedIn, validateCampground, catchAsync( async (req, res) => {
-  const newCampground = await Campground.create(req.body.campground);
+  const newCampground = await Campground.create({...req.body.campground, author: req.user._id});
 	req.flash('success', 'Successfully made a new campground!');
   res.redirect(`/campgrounds/${newCampground._id}`);
 }));
 //single campground show
 router.get("/:id",catchAsync(async (req, res) => {
-  const campground = await Campground.findById(req.params.id).populate('reviews');
+  const campground = await Campground.findById(req.params.id).populate('reviews').populate('author');
 	if(!campground){
 		req.flash('error', 'Campground not found');
 		res.redirect("/campgrounds")

@@ -28,6 +28,7 @@ const showCampground = async (req, res) => {
 
 //**update a campground**//
 const updateCampground = async (req, res) => {
+
   const { id } = req.params;
   const campground = await Campground.findByIdAndUpdate(
     id,

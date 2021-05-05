@@ -1,10 +1,22 @@
-const {validCampgroundSchema} = require('./validSchemas');
+const {validCampgroundSchema, validReviewSchema} = require('./validSchemas');
 const ExpressError = require('./utils/ExpressError');
 const Campground = require("./model/campground");
 const Review = require('./model/review');
+
 //Validating incoming campground with Joi
 const validateCampground = (req,res,next) =>{
 	const {error} = validCampgroundSchema.validate(req.body);
+	if(error){
+		const msg = error.details.map(el => el.message).join(',');
+		throw new ExpressError(msg, 400)
+	} else{
+		next()
+	}
+}
+
+//Validating incoming review
+const validateReview = (req,res,next) =>{
+	const {error} = validReviewSchema.validate(req.body);
 	if(error){
 		const msg = error.details.map(el => el.message).join(',');
 		throw new ExpressError(msg, 400)
@@ -51,5 +63,6 @@ module.exports = {
 	isLoggedIn,
 	validateCampground,
 	isAuthorized,
-	isAuthReview
+	isAuthReview,
+	validateReview
 }

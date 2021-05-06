@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Review = require("./review");
 const Schema = mongoose.Schema;
 const ImageSchema = new Schema ({
-	url: String,
+	url:String,
 	fileName: String
 })
 const CampgroundSchema = new Schema({

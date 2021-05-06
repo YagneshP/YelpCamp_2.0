@@ -12,7 +12,7 @@ const renderNewCampFrom = (req, res) => {
 //**create campground**//
 const createCampground = async (req, res) => {
   const newCampground = new Campground({...req.body.campground, author: req.user._id});
-	newCampground.image = req.files.map(f => ({url: f.path,filename:f.filename}))
+	newCampground.image = req.files.map(f => ({url:f.path,filename:f.filename}))
 	await newCampground.save()
 	req.flash('success', 'Successfully made a new campground!');
   res.redirect(`/campgrounds/${newCampground._id}`);

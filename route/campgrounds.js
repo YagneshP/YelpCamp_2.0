@@ -17,7 +17,7 @@ router.route("/new")
 //single campground show/update/delete
 router.route("/:id")
 			.get(catchAsync(campgrounds.showCampground))
-			.put(isLoggedIn, isAuthorized,validateCampground,catchAsync(campgrounds.updateCampground))
+			.put(isLoggedIn, isAuthorized,upload.array('image',3),validateCampground,catchAsync(campgrounds.updateCampground))
 			.delete(isLoggedIn, isAuthorized,catchAsync(campgrounds.deleteCampground));
 
 //edit campground Form

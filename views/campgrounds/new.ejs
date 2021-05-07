@@ -24,18 +24,7 @@
 									Please provide location of your campground
 								</div>
 						</div>
-            <div class="mb-3">
-							<label for="image" class="form-label">Add Images (must not be more than 3)</label>
-  						<input class="form-control" type="file"  name="image" id="image" multiple>
-                <!-- <label class="form-label" for="image">Image Url</label>
-                <input class="form-control" type="text" id="image" name="campground[image]" required>
-								<div class="valid-feedback">
-									Looks good!
-								</div>
-								<div class="invalid-feedback">
-									Select an image to show your campground
-								</div> -->
-						</div>
+     
             <div class="mb-3">
                 <label class="form-label" for="price">Campground Price</label>
                 <div class="input-group">
@@ -55,6 +44,10 @@
 								<div class="invalid-feedback">
 									Describe the campground
 								</div>
+						</div>
+						<div class="mb-3 custom-file">
+							<label for="image" class="form-label ">Upload Image(s)</label>
+							<input class="form-control" type="file"  name="image" id="image" multiple>
 						</div>
             <div class="mb-3">
                 <button class="btn btn-success">Add Campground</button>

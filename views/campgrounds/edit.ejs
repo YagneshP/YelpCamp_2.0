@@ -13,10 +13,7 @@
                 <input class="form-control" type="text" id="location" name="campground[location]"
                     value="<%=campground.location %>" required>
             </div>
-            <div class="mb-3">
-							<label for="image" class="form-label">Add More Images (must not be more than 3)</label>
-  						<input class="form-control" type="file"  name="image" id="image" multiple>
-            </div>
+           
             <div class="mb-3">
                 <label class="form-label" for="price">Campground Price</label>
                 <div class="input-group">
@@ -25,11 +22,14 @@
                         aria-describedby="price-label" name="campground[price]" value="<%=campground.price %>">
                 </div>
             </div>
-
-            <div class="mb-3">
+						<div class="mb-3">
                 <label class="form-label" for="description">Description</label>
                 <textarea class="form-control" type="text" id="description"
                     name="campground[description]" required><%= campground.description%></textarea>
+            </div>
+						<div class="mb-3 custom-file">
+							<label for="image" class="form-label">Add More Images (must not be more than 3)</label>
+  						<input class="form-control" type="file"  name="image" id="image" multiple>
             </div>
             <div class="mb-3">
                 <button class="btn btn-info">Update Campground</button>

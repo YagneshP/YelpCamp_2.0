@@ -48,13 +48,11 @@
         </div>
     </div>
 		<div class="col-6">
+			<div id='map' style='width: 400px; height: 300px;'></div>
 			<% if (currentUser) { %>
+				
 				<h2>Leave a Review</h2>
 				<form action='/campgrounds/<%=campground._id %>/reviews' method='POST' class="mb-3 validate-form" novalidate>
-					<!-- <div class='mb-3'>
-						<label for='rating' class="form-label">Rating</label>
-						<input type="range" name="review[rating]" id="rating" min='1' max='5' class="form-range">
-					</div> -->
 					<fieldset class="starability-basic">
 						<input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked
 								aria-label="No rating." />
@@ -100,3 +98,8 @@
 				<% } %>  
 		</div>
 </div>
+<script>
+	const mapbox_Token = '<%-process.env.MAPBOX_ACCESS_TOKEN%>'
+	// const campgroung = 
+</script>
+<script src='/javascripts/showmap.js'></script>

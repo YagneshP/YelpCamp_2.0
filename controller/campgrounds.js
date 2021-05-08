@@ -5,7 +5,7 @@ const mapBoxToken = process.env.MAPBOX_ACCESS_TOKEN;
 const geocodingClient = mbxGeocoding({ accessToken: mapBoxToken });
 //**all campgrounds**//
 const index = async (req, res) => {
-  const campgrounds = await Campground.find({});
+  const campgrounds = await Campground.find({}).populate('popupText');
   res.render("campgrounds/index", { campgrounds });
 }
 //**create campground FORM**//

@@ -20,6 +20,8 @@ const passport = require("passport");
 const User = require("./model/user");
 const LocalStrategy = require('passport-local');
 const mongoSanitize = require('express-mongo-sanitize');
+const MongoStore = require('connect-mongo');
+
 mongoose
   .connect(
     "mongodb+srv://yagnesh:yelpcamp@cluster0.0s9kp.mongodb.net/firstDataBase?retryWrites=true&w=majority",
@@ -42,6 +44,9 @@ app.use(mongoSanitize({
 }))
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
+
+
+
 const sessionConfig = {
 	secret: 'thisshouldbeabettersecret!',
 	resave: false,

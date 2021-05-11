@@ -82,14 +82,17 @@ const scriptSrcUrls = [
 	"https://kit.fontawesome.com/",
 	"https://cdnjs.cloudflare.com/",
 	"https://cdn.jsdelivr.net",
+"	https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js",
 ];
 const styleSrcUrls = [
+	"https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js",
 	"https://kit-free.fontawesome.com/",
 	"https://stackpath.bootstrapcdn.com/",
 	"https://api.mapbox.com/",
 	"https://api.tiles.mapbox.com/",
 	"https://fonts.googleapis.com/",
 	"https://use.fontawesome.com/",
+	'https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css'
 ];
 const connectSrcUrls = [
 	"https://api.mapbox.com/",

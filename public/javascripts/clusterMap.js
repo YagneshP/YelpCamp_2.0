@@ -82,6 +82,7 @@ map.on('load', function () {
 			const features = map.queryRenderedFeatures(e.point, {
 					layers: ['clusters']
 			});
+			console.log("featuressss",features);
 			const clusterId = features[0].properties.cluster_id;
 			map.getSource('campgrounds').getClusterExpansionZoom(
 					clusterId,
@@ -101,7 +102,10 @@ map.on('load', function () {
 	// the location of the feature, with
 	// description HTML from its properties.
 	map.on('click', 'unclustered-point', function (e) {
+		console.log("features",e.features[0])
+		console.log("properties",e.features[0].properties)
 			const { popUpMarkup } = e.features[0].properties;
+			console.log('popUpMarkup',popUpMarkup)
 			const coordinates = e.features[0].geometry.coordinates.slice();
 
 			// Ensure that if the map is zoomed out such that
